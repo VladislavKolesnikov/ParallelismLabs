@@ -1,10 +1,16 @@
 var express = require("express");
 var app = express();
+var bodyParser = require('body-parser');
 
 var port = process.env.PORT || 8080;
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get("/", function(req, res) {
-    res.send("Hello World!");
+    console.log(req.query);
+    res.send(`Hello ${req.query.name ? req.query.name : "World!"}`);
+    console.log(req.query);
 });
 
 app.listen(port, function() {
